@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MundoAwoo Frontend
 
-## Getting Started
+Proyecto Next.js con React y TypeScript. Esta primera entrega contiene únicamente el proyecto base y la estructura de carpetas. No hay consumo de API, vistas funcionales, autenticación ni lógica de negocio.
 
-First, run the development server:
+## Organización
+
+- `src/app`: rutas de Next.js agrupadas en públicas, privadas y administrativas. Las rutas futuras están vacías; solo `/` tiene una página provisional para comprobar que el proyecto arranca.
+- `src/domain/entities`: espacio para las entidades del negocio.
+- `src/data/dto`: espacio para los tipos de entrada y respuesta de la API.
+- `src/data/repositories`: espacio para el acceso a los endpoints, separado por módulo.
+- `src/data/api.ts`: lugar reservado para el cliente HTTP compartido.
+- `src/presentation/pages`: cada página tendrá `view` para la interfaz y `viewmodel` para la lógica.
+- `src/presentation/components`: componentes comunes, de alertas y de layout.
+- `src/presentation/hooks`, `providers` y `layouts`: responsabilidades compartidas de la presentación.
+- `src/security`: futuro manejo de sesión, acceso y roles.
+- `src/styles`: estilos compartidos para mantener una misma línea visual y facilitar el diseño adaptable.
+
+## Módulos previstos según el backend
+
+| Módulo | Endpoints del backend |
+| --- | --- |
+| Autenticación | registro, login, refresh, cerrar sesión |
+| Perfil | consultar, actualizar |
+| Avatar | consultar, cambiar color, equipar, desequipar |
+| Catálogo | categorías, ítems |
+| Inventario | consultar, desbloquear ítem (administrador) |
+| Administración del catálogo | crear categoría, crear ítem |
+
+La URL base de la API está preparada en `.env.example`. Copia ese archivo a `.env.local` si necesitas otra URL local. Ninguna petición se realiza todavía.
+
+## Arranque
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
