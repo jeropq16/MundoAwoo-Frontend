@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges">
+<defs><g id="p"><path d="M0 0h4v10h4v8h4v5H8v5h8v6h4v4H9v7h12v7h5v5H6v16h-8V57h-21v-5h6v-7h10v-7h-13v-5h6v-6h6v-5h-5v-5h5V9h4z"/></g><pattern id="trees" width="86" height="120" patternUnits="userSpaceOnUse"><use href="#p" x="18" y="24"/><use href="#p" x="66" y="40"/></pattern></defs>
+<g fill="#e9f4eb" opacity=".87"><path d="M37 92h20v-8h15v-9h35v6h14v9h25v8H37zM543 70h15V59h22v-7h32v8h14v6h22v8H543zM246 39h17v-6h22v6h17v5h-56zM685 140h17v-6h35v6h20v6h-72z"/></g>
+<g fill="#d7eee4"><path d="M0 225l120-85 42 32 86-85 102 117 60-28 102 28 94-96 119 100 75-61v183H0z"/></g>
+<path fill="#b4d7c7" d="m0 188 90 30 110-72 102 76 77-45 96 59 125-83 100 64 100-51v274H0z"/>
+<path fill="#9bc6b2" d="m0 263 85-43 130 22 94-39 89 48 134-35 117 24 151-37v237H0z"/>
+<g fill="#83b4a3"><use href="#p" x="68" y="205"/><use href="#p" x="97" y="227"/><use href="#p" x="691" y="200"/><use href="#p" x="727" y="185"/><use href="#p" x="600" y="232"/></g>
+<path fill="#9fc49f" d="m0 272 167-13 122 24 185-16 166 7 160-21v187H0z"/>
+<path fill="#c7dbab" d="m0 304 182-23 179 16 248-21 191 28v136H0z"/>
+<path fill="#e4d7ab" d="m468 277 23 1-34 12 42 13 125 29-127-11-92-25zM0 377l218-61 166-18 36 3-184 32L0 434z"/>
+<g fill="#477c68"><use href="#p" transform="translate(31 148) scale(2.2)"/><use href="#p" transform="translate(770 149) scale(2.25)"/></g><g fill="#315e56"><use href="#p" transform="translate(-8 163) scale(2.7)"/><use href="#p" transform="translate(803 159) scale(2.7)"/></g>
+<g fill="#97b785"><path d="M50 338h28v3H50zm94 43h19v4h-19zm463-47h28v4h-28zm78 39h39v4h-39zm-398-47h17v3h-17zm52 66h35v4h-35z"/></g>
+<g fill="#fff2c0"><path d="M107 317h5v5h-5zm8 5h4v4h-4zm521 39h5v5h-5zm10-5h4v4h-4z"/></g></svg>

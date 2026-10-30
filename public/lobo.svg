@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 88" width="240" height="264" shape-rendering="crispEdges">
+<!-- Silueta escalonada, cola y botas -->
+<path fill="#203843" d="M15 3h5v3h5v4h5v5h17v-5h6V6h5V3h6v29h4v8h4v5h-5v6h-7v5h-3v12h5v-5h4v-9h5v-5h5v17h-3v8h-8v4H54v6h-3v3H37v-9h-4v9H17v-4h-2v-9h4v-9h-7V54h4v-6H9v-5H5v-4h6v-9h4z"/>
+<path fill="#7893a4" d="M57 71h7v-5h5v-9h4v8h-3v7h-7v3h-6z"/>
+<path fill="#d2dfdc" d="M68 61v-6h4v-3h2v11z"/>
+<!-- Fourrure et oreilles -->
+<path fill="#97afbd" d="M18 7h3v4h5v5h5v3h17v-4h6v-5h5V7h2v24h4v9h3v3h-5v5h-7v5H24v-5h-7v-5h-6v-3h4V30h3z"/>
+<path fill="#698899" d="M18 8h3v5h5v6h-4v4h-4zm40 4h3v12h-7v-7h4zM32 19h16v4h-4v4h-5v-4h-7z"/>
+<path fill="#edab95" d="M20 15h3v4h3v4h-6zm38 2h2v6h-5v-4h3z"/>
+<path fill="#eef1de" d="M14 35h5v3h9v-3h7v6h10v-6h5v3h12v-4h3v7h-5v5h-8v5H27v-5h-8v-4h-6z"/>
+<path fill="#243944" d="M24 29h8v8h-6v-2h-2zm26 0h7v7h-6v-2h-1zM35 39h10v3h-3v3h-5v-2h-2zM38 46h4v2h-4z"/>
+<path fill="#fff8da" d="M25 29h3v3h-3zm26 0h3v3h-3z"/>
+<!-- Veste de voyage, foulard et sacoche -->
+<path fill="#528f83" d="M20 51h35v5h4v10h-6v7H21v-7h-6V56h5z"/>
+<path fill="#79b8a1" d="M19 55h5v10h-8v-6h3zm10 1h17v13H29z"/>
+<path fill="#f4af53" d="M22 49h33v6h-7v4H30v-4h-8zm23 7h7v11h-6z"/>
+<path fill="#ce763f" d="M26 54h22v3H31v-1h-5zm21 8h5v4h-5z"/>
+<path fill="#624d49" d="M23 70h29v4H23zm4-13h4v4h4v4h4v4h-5v-3h-4v-4h-3z"/>
+<path fill="#b48759" d="M36 65h13v7H36z"/><path fill="#fde0a0" d="M40 66h4v3h-4z"/>
+<path fill="#506274" d="M23 74h11v7H21v-4h2zm17 0h12v7H40z"/>
+<path fill="#947457" d="M19 80h14v4H18zm21 0h12v4H39z"/>
+</svg>

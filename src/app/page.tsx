@@ -1,3 +1,1 @@
-export default function Home() {
-  return <main><h1>MundoAwoo</h1><p>Frontend preparado para comenzar el desarrollo.</p></main>;
-}
+export { Estudio as default } from "@/presentation/pages/avatar/view/Estudio";
