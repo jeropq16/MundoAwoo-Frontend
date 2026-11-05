@@ -2,15 +2,16 @@ import Link from "next/link";
 import { nombres } from "../viewmodel/muestras";
 import { Icono } from "@/presentation/components/common/Icono";
 import type { useEstudio } from "../viewmodel/useEstudio";
+import { esChaquetaGhetto } from "@/presentation/components/avatarApariencia";
 type EstudioVM = ReturnType<typeof useEstudio>;
 const secciones = Object.keys(nombres) as (keyof typeof nombres)[];
-const colores = ["#aad8d1", "#afcbea", "#efc3aa", "#b9afd9", "#e3d796"];
+const colores = ["#e52836", "#e7b65a", "#a568de", "#4587c9", "#d3d0c5"];
 export function Vestidor({ vm, invitado }: { vm: EstudioVM; invitado: boolean }) {
   return (
     <aside className="panel tools">
       <div className="panelHead">
-        <span className="eyebrow">PANEL DE CONTROL</span>
-        <h2>Personalización</h2>
+        <span className="eyebrow">HECHO A TU MANERA</span>
+        <h3>EL VESTIDOR<span>↙</span></h3>
       </div>
       <div className="toolList">
         {secciones.map((t) => (
@@ -30,7 +31,7 @@ export function Vestidor({ vm, invitado }: { vm: EstudioVM; invitado: boolean })
       </div>
       <div className="choices">
         <div className="smallTitle">
-          {invitado ? "Prueba libre" : "Mi selección"}{" "}
+          {invitado ? "Pruébatelo" : "Mi selección"}{" "}
           <span>{nombres[vm.tipo]}</span>
         </div>
         {vm.estado === "error" ? (
@@ -59,7 +60,7 @@ export function Vestidor({ vm, invitado }: { vm: EstudioVM; invitado: boolean })
               }}
             >
               <label>
-                Otro color
+                Tu color de ambiente
                 <input
                   type="color"
                   name="color"
@@ -82,8 +83,9 @@ export function Vestidor({ vm, invitado }: { vm: EstudioVM; invitado: boolean })
                 disabled={vm.ocupado}
                 onClick={() => vm.elegir(item)}
               >
-                {item.nombre}
-                <span>{equipado ? "Quitar" : "Equipar"}</span>
+                <i className="pieceIcon">{esChaquetaGhetto(item) ? <span className="piecePreview" aria-hidden="true" /> : <Icono nombre={vm.tipo === "Fondo" ? "Ropa" : vm.tipo} size={26} />}</i>
+                <span className="pieceName">{item.nombre}<small>{esChaquetaGhetto(item) ? "Varsity negra · Ghetto" : item.ranura === "Animacion" ? "Movimiento" : "Street essentials"}</small></span>
+                <span className="pieceAction">{equipado ? "Quitar −" : "Equipar +"}</span>
               </button>
             );
           })
@@ -93,6 +95,10 @@ export function Vestidor({ vm, invitado }: { vm: EstudioVM; invitado: boolean })
             <Link href="/catalogo">Ver catálogo</Link>
           </p>
         )}
+      </div>
+      <div className="wardrobeNote">
+        <Icono nombre={invitado ? "chispa" : "avatar"} size={20} />
+        {invitado ? <p>Esto es solo el comienzo.<br /><Link href="/registro">Crea tu cuenta y entra al barrio ↗</Link></p> : <p>Tu estilo, a tu nombre.<br /><Link href="/inventario">Ver todo mi inventario ↗</Link></p>}
       </div>
     </aside>
   );

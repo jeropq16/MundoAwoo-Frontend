@@ -4,7 +4,7 @@ import { ranurasPorTipo, type Tipo } from "@/domain/entities/mundo";
 export function Admin() {
   const vm = useAdmin();
   return (
-    <main>
+    <main id="contenido">
       <p className="eyebrow">MUNDO AWOO / ADMINISTRACIÓN</p>
       <h1>
         Gestionar catálogo<span>.</span>

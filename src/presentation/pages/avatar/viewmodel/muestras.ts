@@ -9,15 +9,22 @@ export const nombres = {
   Accesorio: "Accesorios",
   Gesto: "Gestos",
   Baile: "Bailes",
-  Fondo: "Escenario",
+  Fondo: "Ambiente",
 };
 export const muestras: Categoria[] = (
   ["Ropa", "Accesorio", "Gesto", "Baile"] as Tipo[]
 ).map((tipo) => ({ id: tipo, nombre: nombres[tipo], tipo }));
 const piezas: Item[] = [
   {
+    id: "gorra",
+    nombre: "Gorra Awoo",
+    categoriaId: "Accesorio",
+    ranura: "Cabeza",
+    recursoVisual: "/piezas/gorra.svg",
+  },
+  {
     id: "poncho",
-    nombre: "Poncho del valle",
+    nombre: "Chaqueta Ghetto",
     categoriaId: "Ropa",
     ranura: "Torso",
     recursoVisual: "/piezas/poncho.svg",
@@ -31,14 +38,14 @@ const piezas: Item[] = [
   },
   {
     id: "saludo",
-    nombre: "Saludo del bosque",
+    nombre: "Saludo del barrio",
     categoriaId: "Gesto",
     ranura: "Animacion",
     recursoVisual: "saludo",
   },
   {
     id: "paso",
-    nombre: "Paso lunar",
+    nombre: "Paso de la calle",
     categoriaId: "Baile",
     ranura: "Animacion",
     recursoVisual: "paso",

@@ -4,15 +4,21 @@ import { useAcceso } from "../viewmodel/useAcceso";
 export function Acceso({ registro = false }: { registro?: boolean }) {
   const vm = useAcceso(registro);
   return (
-    <main className="narrow">
+    <main id="contenido" className="authPage">
+      <aside className="authArtwork" aria-label="El barrio de Mundo Awoo">
+        <p className="eyebrow">DEL BARRIO PARA EL MUNDO</p>
+        <strong>AQUÍ TODOS<br />SOMOS <span>AWOO.</span></strong>
+        <p>La familia se respeta.</p>
+      </aside>
+      <div className="authContent">
       <p className="eyebrow">MUNDO AWOO / CUENTA</p>
       <h1>
-        {registro ? "Crea tu cuenta" : "Bienvenido al claro"}
+        {registro ? "Únete al barrio" : "De vuelta al barrio"}
         <span>.</span>
       </h1>
-      <p>Guarda el vestuario y el escenario de tu avatar.</p>
+      <p>Tu identidad empieza aquí. Entra a tu cuenta y dale tu sello al personaje.</p>
       <form
-        className="panel form"
+        className="form"
         onSubmit={(e) => {
           e.preventDefault();
           void vm.enviar(new FormData(e.currentTarget));
@@ -63,6 +69,8 @@ export function Acceso({ registro = false }: { registro?: boolean }) {
           {registro ? "Ya tengo una cuenta" : "Crear una cuenta nueva"}
         </Link>
       </form>
+      <Link className="authBack" href="/">← Seguir explorando como invitado</Link>
+      </div>
     </main>
   );
 }

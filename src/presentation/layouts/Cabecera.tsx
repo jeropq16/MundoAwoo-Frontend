@@ -7,18 +7,18 @@ export function Cabecera() {
   const ruta = usePathname();
   const usuario = useUsuario();
   return (
-    <header>
+    <header className="siteHeader">
       <div className="bar">
         <Link className="brand" href="/">
           <b>
             <Icono nombre="avatar" size={27} />
           </b>
-          Mundo<span>Awoo</span>
+          <span className="brandWords">MUNDO <strong>AWOO<span>®</span></strong></span>
         </Link>
         <nav aria-label="Principal">
           {(
             [
-              ["/", "avatar", "Estudio"],
+              ["/", "avatar", "Mi mundo"],
               ["/catalogo", "catalogo", "Catálogo"],
               ["/inventario", "inventario", "Inventario"],
             ] as const
@@ -39,7 +39,8 @@ export function Cabecera() {
         </nav>
         <Link className="account" href={usuario ? "/perfil" : "/login"}>
           <Icono nombre="perfil" />
-          {usuario ? "Mi perfil" : "Iniciar sesión"}
+          {usuario ? "Mi perfil" : "Entrar al barrio"}
+          <span aria-hidden="true">↗</span>
         </Link>
       </div>
     </header>

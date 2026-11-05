@@ -1,6 +1,6 @@
 # Mundo Awoo
 
-Estudio de avatar 2D en Next.js, React y PixiJS. En la portada se puede probar el lobo como invitado. Las piezas de muestra solo viven en esa vista. Al iniciar sesión, el estudio carga el avatar y el inventario de la cuenta.
+Estudio de avatar 2D en Next.js, React y PixiJS. En la portada se puede personalizar a Ryan Castro como invitado. Las piezas de muestra solo viven en esa vista. Al iniciar sesión, el estudio carga el avatar y el inventario de la cuenta.
 
 ## Arranque local
 
@@ -45,4 +45,14 @@ Las tres últimas operaciones requieren administrador. El JWT y el perfil actual
 
 ## Escena
 
-El visor coloca las imágenes por ranura sobre el lobo. Para ropa y accesorios, usa una URL de imagen accesible desde el navegador o una ruta de un archivo servido por el frontend, como `/piezas/poncho.svg`. Si el recurso se aloja en otro origen, ese servidor debe permitir la carga de texturas mediante CORS. Los gestos y bailes usan movimientos locales por tipo y comparten la ranura Animacion. Los botones de acciones rápidas permiten probar movimientos sin cambiar el equipamiento guardado.
+El visor muestra a Ryan Castro y coloca los accesorios por ranura sobre su silueta humana. Para ropa y accesorios, usa una URL de imagen accesible desde el navegador o una ruta de un archivo servido por el frontend, como `/piezas/poncho.svg`. Si el recurso se aloja en otro origen, ese servidor debe permitir la carga de texturas mediante CORS. Los gestos y bailes usan movimientos locales por tipo y comparten la ranura Animacion. Los botones de acciones rápidas permiten probar movimientos sin cambiar el equipamiento guardado.
+
+## Identidad visual · Barrio edition
+
+La interfaz comparte una paleta carbón, rojo y crema, tipografías locales y recursos optimizados en WebP. El estudio mantiene las mismas ranuras, repositorios y operaciones HTTP. Ryan usa un sprite transparente con cuatro variantes: frente y espalda, con y sin la chaqueta varsity negra de referencia. No hay escalado pixelado. `colorFondo` controla el ambiente, el resplandor y la luz del escenario, y se guarda con la misma operación del backend.
+
+La chaqueta Ghetto, los lentes y la gorra de prueba pertenecen exclusivamente al modo invitado; el inventario autenticado sigue viniendo de la API. Las acciones rápidas no cambian el equipamiento guardado. La animación respeta la preferencia de movimiento reducido y el control de pausa. La tarjeta musical abre la página oficial del álbum, sin reproducción automática.
+
+La procedencia de imágenes y licencias está documentada en `public/images/SOURCES.md` y `public/fonts/`. Las vistas se adaptan a escritorio y móvil, con la vista previa antes del vestidor en pantallas pequeñas.
+
+El estudio abre directamente en el vestidor, sin el banner promocional superior. El recurso, el prompt y el funcionamiento del personaje están documentados en `docs/avatar-ryan.md`. El personaje tiene animación 2D de balanceo y rebote; no es un modelo 3D articulado.

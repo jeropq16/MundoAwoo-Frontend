@@ -4,11 +4,12 @@ import { usePerfil } from "../viewmodel/usePerfil";
 export function Perfil() {
   const vm = usePerfil();
   return (
-    <main className="narrow">
-      <p className="eyebrow">MI CUENTA</p>
+    <main id="contenido" className="narrow">
+      <p className="eyebrow">TU NOMBRE EN EL BARRIO</p>
       <h1>
         Mi perfil<span>.</span>
       </h1>
+      <p>Que sepan quién eres. Ponle tu sello a tu perfil.</p>
       {vm.datos ? (
         <form
           className="form panel"

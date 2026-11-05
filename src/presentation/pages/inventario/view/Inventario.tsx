@@ -1,21 +1,26 @@
 "use client";
 import Link from "next/link";
 import { useInventario } from "../viewmodel/useInventario";
+import { EstadoVacio } from "@/presentation/components/common/EstadoVacio";
+import { Icono } from "@/presentation/components/common/Icono";
 export function Inventario() {
   const vm = useInventario();
   return (
-    <main>
-      <p className="eyebrow">MI COLECCIÓN</p>
+    <main id="contenido">
+      <div className="pageBanner">
+      <p className="eyebrow">03 / TU COLECCIÓN PERSONAL</p>
       <h1>
         Inventario<span>.</span>
       </h1>
-      <p>Estas son las piezas que puedes equipar en el estudio.</p>
+      <p>Tu colección, tu identidad. Lleva tus piezas al vestidor y arma la pinta.</p>
+      </div>
       <section className="panel form">
         {vm.datos ? (
           vm.datos.length ? (
             <ul className="collection">
               {vm.datos.map(({ item, fechaDesbloqueo }) => (
                 <li key={item.id}>
+                  <Icono nombre="inventario" />
                   <b>{item.nombre}</b>
                   <small>
                     {item.ranura} ·{" "}
@@ -25,7 +30,7 @@ export function Inventario() {
               ))}
             </ul>
           ) : (
-            <p>Todavía no tienes piezas desbloqueadas.</p>
+            <EstadoVacio icono="inventario" titulo="Tu historia apenas empieza."><p>Todavía no tienes piezas desbloqueadas. Explora el catálogo para conocer la colección.</p><Link className="primary" href="/catalogo">Explorar catálogo ↗</Link></EstadoVacio>
           )
         ) : vm.cargando ? (
           <p>Cargando inventario…</p>

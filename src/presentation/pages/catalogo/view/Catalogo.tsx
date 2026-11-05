@@ -1,15 +1,18 @@
 "use client";
 import { useCatalogo } from "../viewmodel/useCatalogo";
 import { Icono } from "@/presentation/components/common/Icono";
+import { EstadoVacio } from "@/presentation/components/common/EstadoVacio";
 export function Catalogo() {
   const { categorias, id, elegir, items } = useCatalogo();
   return (
-    <main>
-      <p className="eyebrow">MUNDO AWOO / COLECCIÓN</p>
+    <main id="contenido">
+      <div className="pageBanner">
+      <p className="eyebrow">02 / EL ARMARIO DEL BARRIO</p>
       <h1>
         Catálogo<span>.</span>
       </h1>
-      <p>Explora las piezas por categoría.</p>
+      <p>Piezas con calle. Explora el catálogo y encuentra lo que va contigo.</p>
+      </div>
       <section className="panel form">
         {categorias.datos?.length ? (
           <label>
@@ -25,9 +28,9 @@ export function Catalogo() {
         ) : categorias.cargando ? (
           <p>Cargando categorías…</p>
         ) : categorias.datos ? (
-          <p>Aún no hay categorías publicadas.</p>
+          <EstadoVacio icono="Ropa" titulo="El próximo drop está por llegar."><p>Aún no hay categorías publicadas. Mientras tanto, prueba las piezas de muestra en tu mundo.</p><a className="primary" href="/">Ir al vestidor ↗</a></EstadoVacio>
         ) : (
-          <button onClick={categorias.recargar}>Reintentar catálogo</button>
+          <EstadoVacio icono="catalogo" titulo="No pudimos abrir el catálogo."><p>No fue posible cargar la colección. Inténtalo de nuevo en un momento.</p><button onClick={categorias.recargar}>Reintentar catálogo ↻</button></EstadoVacio>
         )}
         {id &&
           (items.datos ? (
@@ -47,7 +50,7 @@ export function Catalogo() {
                 ))}
               </ul>
             ) : (
-              <p>Esta categoría aún no tiene piezas.</p>
+              <EstadoVacio icono="Ropa" titulo="Aquí viene más flow."><p>Esta categoría todavía no tiene piezas. Explora otra categoría.</p></EstadoVacio>
             )
           ) : items.cargando ? (
             <p>Cargando piezas…</p>

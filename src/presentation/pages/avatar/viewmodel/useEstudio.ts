@@ -16,7 +16,7 @@ export function useEstudio(usuario: string | null) {
   const [avatar, setAvatar] = useState<Avatar>({
     id: "",
     usuarioId: "",
-    colorFondo: "#aad8d1",
+    colorFondo: "#e52836",
     itemsEquipados: [],
   });
   const [categorias, setCategorias] = useState<Categoria[]>(
