@@ -1,0 +1,209 @@
+import { personajes3D, type Personaje3D } from "@/domain/entities/avatar3d";
+import { Aro, Segmento, Volumen } from "./Formas";
+import { useBaile } from "./useBaile";
+
+type Props = { personaje: Personaje3D; chaqueta: boolean; bailando: boolean };
+export function Personaje({ personaje, chaqueta, bailando }: Props) {
+  const raiz = useBaile(bailando);
+  const queen = personaje === "queen";
+  const { piel, cabello, acento } = personajes3D[personaje];
+  const hombro = queen ? 0.19 : 0.23;
+  const torso = chaqueta ? "#242936" : "#e8e2d3";
+  return (
+    <group ref={raiz}>
+      <Volumen
+        posicion={[0, 0.82, 0]}
+        escala={[queen ? 0.205 : 0.19, 0.15, 0.135]}
+        color="#343946"
+      />
+      <Volumen
+        posicion={[0, 1.12, 0]}
+        escala={[hombro, 0.29, 0.135]}
+        color={torso}
+      />
+      {chaqueta && (
+        <group>
+          <Volumen
+            posicion={[0, 0.92, 0]}
+            escala={[hombro, 0.065, 0.14]}
+            color={acento}
+          />
+          <Volumen
+            posicion={[0, 1.38, 0]}
+            escala={[0.105, 0.035, 0.095]}
+            color={acento}
+          />
+          <mesh position={[0, 1.15, 0.137]}>
+            <boxGeometry args={[0.008, 0.36, 0.012]} />
+            <meshStandardMaterial
+              color="#c3beb2"
+              metalness={0.6}
+              roughness={0.4}
+            />
+          </mesh>
+          <mesh position={[0.1, 1.25, 0.12]} rotation={[0, 0, Math.PI / 4]}>
+            <boxGeometry args={[0.065, 0.065, 0.028]} />
+            <meshStandardMaterial color={acento} />
+          </mesh>
+        </group>
+      )}
+      <Volumen
+        posicion={[0, 1.43, 0]}
+        escala={[0.075, 0.09, 0.075]}
+        color={piel}
+      />
+      <group position={[0, 1.65, 0]}>
+        <Volumen escala={[queen ? 0.197 : 0.21, 0.245, 0.19]} color={piel} />
+        <Volumen
+          posicion={[0, -0.125, 0.06]}
+          escala={[0.135, 0.105, 0.125]}
+          color={piel}
+        />
+        <Volumen
+          posicion={[0, 0.14, -0.035]}
+          escala={[0.215, 0.135, 0.19]}
+          color={cabello}
+        />
+        {queen ? (
+          <group>
+            <Volumen
+              posicion={[0, 0.1, -0.14]}
+              escala={[0.21, 0.21, 0.11]}
+              color={cabello}
+            />
+            {[-1, 1].map((lado) => (
+              <group key={lado}>
+                <Volumen
+                  posicion={[lado * 0.17, 0.2, -0.05]}
+                  escala={[0.105, 0.12, 0.105]}
+                  color={cabello}
+                />
+                <Volumen
+                  posicion={[lado * 0.18, -0.1, -0.12]}
+                  escala={[0.055, 0.25, 0.065]}
+                  color={cabello}
+                />
+                <Aro
+                  posicion={[lado * 0.215, -0.11, 0.025]}
+                  radio={0.04}
+                  color="#ebc477"
+                />
+              </group>
+            ))}
+          </group>
+        ) : (
+          <group>
+            <Volumen
+              posicion={[0, 0.215, -0.015]}
+              escala={[0.2, 0.085, 0.17]}
+              color={cabello}
+            />
+            <Volumen
+              posicion={[0, -0.135, 0.12]}
+              escala={[0.115, 0.07, 0.065]}
+              color={cabello}
+            />
+          </group>
+        )}
+        {[-1, 1].map((lado) => (
+          <group key={lado}>
+            <Volumen
+              posicion={[lado * 0.202, -0.015, 0]}
+              escala={[0.035, 0.06, 0.04]}
+              color={piel}
+            />
+            <Volumen
+              posicion={[lado * 0.075, 0.01, 0.174]}
+              escala={[0.044, 0.025, 0.018]}
+              color="#fff4e1"
+            />
+            <Volumen
+              posicion={[lado * 0.075, 0.009, 0.19]}
+              escala={[0.016, 0.021, 0.009]}
+              color="#30201a"
+            />
+            <Volumen
+              posicion={[lado * 0.069, 0.016, 0.199]}
+              escala={[0.005, 0.006, 0.003]}
+              color="#ffffff"
+            />
+            <Volumen
+              posicion={[lado * 0.075, 0.055, 0.173]}
+              escala={[0.047, 0.01, 0.015]}
+              color={cabello}
+            />
+          </group>
+        ))}
+        <Volumen
+          posicion={[0, -0.04, 0.188]}
+          escala={[0.033, 0.043, 0.04]}
+          color={piel}
+        />
+        <Volumen
+          posicion={[0, -0.105, 0.185]}
+          escala={[0.044, 0.012, 0.012]}
+          color={queen ? "#8b2944" : "#95554b"}
+        />
+      </group>
+      <Aro posicion={[0, 1.32, 0.13]} radio={0.08} color="#e4c17c" />
+      {[-1, 1].map((lado) => (
+        <group key={lado}>
+          <group name={"brazo" + lado} position={[lado * hombro, 1.35, 0]}>
+            <Volumen escala={[0.075, 0.075, 0.075]} color={chaqueta ? torso : piel} />
+            <Segmento
+              largo={0.3}
+              radio={chaqueta ? 0.085 : 0.07}
+              color={chaqueta ? torso : piel}
+            />
+            <group name={"codo" + lado} position={[0, -0.29, 0]}>
+              <Volumen escala={[0.063, 0.063, 0.063]} color={chaqueta ? torso : piel} />
+              <Segmento
+                largo={0.29}
+                radio={chaqueta ? 0.073 : 0.057}
+                color={chaqueta ? torso : piel}
+              />
+              {chaqueta && (
+                <Volumen
+                  posicion={[0, -0.25, 0]}
+                  escala={[0.074, 0.04, 0.074]}
+                  color={acento}
+                />
+              )}
+              <Volumen
+                posicion={[0, -0.32, 0]}
+                escala={[0.061, 0.085, 0.047]}
+                color={piel}
+              />
+            </group>
+          </group>
+          <group name={"pierna" + lado} position={[lado * 0.105, 0.82, 0]}>
+            <Segmento
+              largo={0.36}
+              radio={queen ? 0.1 : 0.095}
+              color="#343946"
+            />
+            <group name={"rodilla" + lado} position={[0, -0.35, 0]}>
+              <Volumen escala={[0.076, 0.076, 0.076]} color="#343946" />
+              <Segmento largo={0.35} radio={0.079} color="#343946" />
+              <Volumen
+                posicion={[0, -0.37, 0.045]}
+                escala={[0.095, 0.065, 0.16]}
+                color="#efe9db"
+              />
+              <Volumen
+                posicion={[0, -0.39, 0.055]}
+                escala={[0.099, 0.035, 0.165]}
+                color="#a9a8a4"
+              />
+              <Volumen
+                posicion={[lado * 0.075, -0.36, 0.055]}
+                escala={[0.028, 0.022, 0.09]}
+                color={acento}
+              />
+            </group>
+          </group>
+        </group>
+      ))}
+    </group>
+  );
+}

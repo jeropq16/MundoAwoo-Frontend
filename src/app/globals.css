@@ -216,7 +216,7 @@ textarea { min-height: 115px; resize: vertical; }
   .account { padding: 8px 11px; font-size: 10px; }
   .account > span { margin-left: 2px; }
   nav { order: 3; width: 100%; gap: 0; margin-top: 14px; justify-content: space-around; }
-  nav a { padding: 12px; font-size: 11px; }
+  nav a { padding: 12px 4px; font-size: 11px; gap: 5px; min-width: 0; }
   .studioPage { padding-top: 16px; }
   .studioSection { margin-top: 0; }
   .pageTitle { gap: 10px; }

@@ -1,0 +1,129 @@
+.labPage .pageTitle {
+  margin-bottom: 28px;
+}
+.labGrid {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 22px;
+}
+.labTools {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: start;
+}
+.labTools .eyebrow:not(:first-child) {
+  margin-top: 20px;
+}
+.labTools button {
+  text-align: left;
+  padding: 14px;
+}
+.labTools button span {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+  color: var(--muted);
+}
+.labTools button[aria-pressed="true"] {
+  border-color: var(--red);
+  background: #47232c;
+}
+.labTools .primary {
+  background: var(--red);
+}
+.labNote,
+.labCaption {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.labNote {
+  margin-top: 12px;
+}
+.labStage {
+  overflow: hidden;
+  min-width: 0;
+}
+.labTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+}
+.labTitle h2 {
+  font-size: 30px;
+}
+.labTitle span {
+  font-size: 11px;
+  color: var(--gold);
+}
+.labCanvas {
+  height: 520px;
+  background: #191b20;
+}
+.labCanvas canvas {
+  touch-action: none;
+}
+.labCamera {
+  padding: 16px 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.labCamera p {
+  font-size: 11px;
+}
+.labCamera > div {
+  display: flex;
+  gap: 6px;
+}
+.labCamera button {
+  font-size: 11px;
+}
+.labCaption {
+  margin-top: 20px;
+}
+.labFallback {
+  padding: 36px;
+}
+@media (max-width: 900px) {
+  .labGrid {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .labTitle {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 620px) {
+  .labGrid {
+    grid-template-columns: 1fr;
+  }
+  .labCanvas {
+    height: 390px;
+  }
+  .labTools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 16px;
+  }
+  .labTools .eyebrow,
+  .labNote {
+    grid-column: 1 / -1;
+  }
+  .labTools .eyebrow:not(:first-child) {
+    margin-top: 6px;
+  }
+  .labCamera {
+    padding: 14px;
+  }
+  .labPage .tag {
+    display: none;
+  }
+}

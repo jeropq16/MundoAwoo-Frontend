@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useCatalogo } from "../viewmodel/useCatalogo";
 import { Icono } from "@/presentation/components/common/Icono";
 import { EstadoVacio } from "@/presentation/components/common/EstadoVacio";
@@ -28,7 +29,7 @@ export function Catalogo() {
         ) : categorias.cargando ? (
           <p>Cargando categorías…</p>
         ) : categorias.datos ? (
-          <EstadoVacio icono="Ropa" titulo="El próximo drop está por llegar."><p>Aún no hay categorías publicadas. Mientras tanto, prueba las piezas de muestra en tu mundo.</p><a className="primary" href="/">Ir al vestidor ↗</a></EstadoVacio>
+          <EstadoVacio icono="Ropa" titulo="El próximo drop está por llegar."><p>Aún no hay categorías publicadas. Mientras tanto, prueba las piezas de muestra en tu mundo.</p><Link className="primary" href="/">Ir al vestidor ↗</Link></EstadoVacio>
         ) : (
           <EstadoVacio icono="catalogo" titulo="No pudimos abrir el catálogo."><p>No fue posible cargar la colección. Inténtalo de nuevo en un momento.</p><button onClick={categorias.recargar}>Reintentar catálogo ↻</button></EstadoVacio>
         )}
