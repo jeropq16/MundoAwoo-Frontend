@@ -1,4 +1,6 @@
-# Ryan Castro · avatar del estudio
+# Archivo histórico · anterior avatar 2D de Ryan Castro
+
+Este recurso ya no se utiliza en el estudio principal. La experiencia activa es el estudio 3D con Ghetto Boy y La Ghetto Queen. Este documento conserva la procedencia y el prompt del recurso anterior.
 
 ## Recurso y funcionamiento
 

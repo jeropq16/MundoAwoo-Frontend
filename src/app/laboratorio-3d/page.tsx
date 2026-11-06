@@ -1,1 +1,3 @@
-export { Estudio3D as default } from "@/presentation/pages/estudio3d/view/Estudio3D";
+import { redirect } from "next/navigation";
+
+export default function Laboratorio3D() { redirect("/"); }

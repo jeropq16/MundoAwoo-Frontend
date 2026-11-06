@@ -1,27 +1,19 @@
 import { useState } from "react";
-import type { Personaje3D } from "@/domain/entities/avatar3d";
+import { useEstudio } from "../../avatar/viewmodel/useEstudio";
+import { recurso3D } from "@/presentation/components/avatar3d/recursos3d";
 
-export function useEstudio3D() {
-  const [personaje, setPersonaje] = useState<Personaje3D>("ghetto");
-  const [prendas, setPrendas] = useState({ ghetto: false, queen: false });
-  const [bailando, setBailando] = useState(false);
+export function useEstudio3D(usuario: string | null) {
+  const estudio = useEstudio(usuario);
   const [camara, setCamara] = useState({ angulo: 0, revision: 0 });
-  function girar(angulo: number) {
-    setCamara((actual) => ({ angulo, revision: actual.revision + 1 }));
-  }
-  function cambiarPersonaje(valor: Personaje3D) {
-    setPersonaje(valor);
-    setBailando(false);
-  }
+  const torso = estudio.avatar.itemsEquipados.find((p) => p.ranura === "Torso" && recurso3D(p));
+  const chaquetaBase = estudio.avatar.personaje3D === "queen" ? estudio.avatar.chaquetaQueen : estudio.avatar.chaquetaGhetto;
   return {
-    personaje,
-    cambiarPersonaje,
-    chaqueta: prendas[personaje],
-    bailando,
-    alternarPrenda: () =>
-      setPrendas((actual) => ({ ...actual, [personaje]: !actual[personaje] })),
-    alternarBaile: () => setBailando((actual) => !actual),
+    ...estudio,
+    personaje: estudio.avatar.personaje3D,
+    chaquetaBase,
+    torso,
+    chaqueta: Boolean(torso) || chaquetaBase,
     camara,
-    girar,
+    girar: (angulo: number) => setCamara((actual) => ({ angulo, revision: actual.revision + 1 })),
   };
 }

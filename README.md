@@ -1,10 +1,12 @@
 # Mundo Awoo
 
-Estudio de avatar 2D en Next.js, React y PixiJS. En la portada se puede personalizar a Ryan Castro como invitado. Las piezas de muestra solo viven en esa vista. Al iniciar sesión, el estudio carga el avatar y el inventario de la cuenta.
+Estudio de avatar 3D en Next.js, React, Three.js y React Three Fiber. La portada y `/avatar` usan la misma experiencia: Ghetto Boy y La Ghetto Queen, ropa y accesorios, baile y saludo articulados, pausa y cámara orbital. `/laboratorio-3d` redirige a la portada.
+
+El modo invitado permite probar piezas durante la visita. Con una cuenta, el personaje, la bomber de cada personaje, el color del ambiente y el equipamiento se recuperan desde la API y se guardan al cambiar. La cámara y las acciones rápidas pertenecen a la sesión de visualización.
 
 ## Arranque local
 
-1. Inicia MundoAwoo.Api con su configuración de MySQL y JWT.
+1. Aplica las migraciones del backend (incluida `EstudioPrincipal3D`) e inicia MundoAwoo.Api con su configuración de MySQL y JWT.
 2. Copia `.env.example` a `.env` y ajusta `API_BASE_URL` a la dirección del backend. El perfil HTTP local usa el puerto 5064.
 3. Ejecuta `npm ci` y `npm run dev`. Abre http://localhost:3000.
 
@@ -32,6 +34,7 @@ Todas las rutas de la tabla llevan el prefijo `/api`. Las operaciones de perfil,
 | PUT perfil | nombreVisible, biografia | Perfil |
 | GET avatar | — | Avatar |
 | PUT avatar/color | colorFondo en formato #RRGGBB | Avatar |
+| PUT avatar/estilo3d | personaje3D, chaquetaGhetto, chaquetaQueen | Avatar |
 | POST avatar/items/{itemId}/equipar | identificador en la ruta | Avatar |
 | DELETE avatar/items/{itemId}/desequipar | identificador en la ruta | 204 |
 | GET catalogo/categorias | — | Categoria[] |
@@ -43,16 +46,27 @@ Todas las rutas de la tabla llevan el prefijo `/api`. Las operaciones de perfil,
 
 Las tres últimas operaciones requieren administrador. El JWT y el perfil actuales no exponen el rol. El enlace de administración está en el perfil y una denegación del servidor aparece como alerta.
 
-## Escena
+## Escena y prendas 3D
 
-El visor muestra a Ryan Castro y coloca los accesorios por ranura sobre su silueta humana. Para ropa y accesorios, usa una URL de imagen accesible desde el navegador o una ruta de un archivo servido por el frontend, como `/piezas/poncho.svg`. Si el recurso se aloja en otro origen, ese servidor debe permitir la carga de texturas mediante CORS. Los gestos y bailes usan movimientos locales por tipo y comparten la ranura Animacion. Los botones de acciones rápidas permiten probar movimientos sin cambiar el equipamiento guardado.
+Los modelos procedurales y su rig están en `src/presentation/components/avatar3d`. El estudio usa el inventario y las categorías de la API; no carga las imágenes del antiguo visor 2D. Los identificadores de modelos disponibles para `recursoVisual` son:
 
-## Identidad visual · Barrio edition
+| Recurso | Ranura |
+| --- | --- |
+| `awoo3d:bomber` | Torso |
+| `awoo3d:gorra` | Cabeza |
+| `awoo3d:lentes` | Ojos |
+| `awoo3d:cadena` | Cuello |
+| `awoo3d:pantalon` | Piernas |
+| `awoo3d:zapatillas` | Pies |
+| `awoo3d:baile` | Animacion (categoría Baile) |
+| `awoo3d:saludo` | Animacion (categoría Gesto) |
 
-La interfaz comparte una paleta carbón, rojo y crema, tipografías locales y recursos optimizados en WebP. El estudio mantiene las mismas ranuras, repositorios y operaciones HTTP. Ryan usa un sprite transparente con cuatro variantes: frente y espalda, con y sin la chaqueta varsity negra de referencia. No hay escalado pixelado. `colorFondo` controla el ambiente, el resplandor y la luz del escenario, y se guarda con la misma operación del backend.
+Se reconocen las rutas históricas de la bomber, gorra, lentes y movimientos de muestra para no romper los ítems existentes. Otros recursos se identifican como pendientes de versión 3D y no se pueden equipar desde el estudio; los que ya estaban equipados se pueden quitar. Añadir modelos implica ampliar `recursos3d.ts` y su representación en `Personaje.tsx`, conservando la ranura correspondiente.
 
-La chaqueta Ghetto, los lentes y la gorra de prueba pertenecen exclusivamente al modo invitado; el inventario autenticado sigue viniendo de la API. Las acciones rápidas no cambian el equipamiento guardado. La animación respeta la preferencia de movimiento reducido y el control de pausa. La tarjeta musical abre la página oficial del álbum, sin reproducción automática.
+La bomber incluida es una opción base disponible en ambos personajes. Si hay una chaqueta del inventario equipada, prevalece sobre la bomber y se cambia desde el vestidor. El inventario sigue exigiendo desbloqueo; la opción base no concede ítems. Las acciones rápidas no cambian el equipamiento guardado. La pausa congela la pose y se respeta la preferencia del sistema de reducir movimiento.
 
-La procedencia de imágenes y licencias está documentada en `public/images/SOURCES.md` y `public/fonts/`. Las vistas se adaptan a escritorio y móvil, con la vista previa antes del vestidor en pantallas pequeñas.
+El visor requiere WebGL. Si no puede iniciarse, muestra un aviso y ofrece reintentar. La cámara permite arrastrar, acercar con rueda/pellizco y usar Frente, Perfil y Espalda.
 
-El estudio abre directamente en el vestidor, sin el banner promocional superior. El recurso, el prompt y el funcionamiento del personaje están documentados en `docs/avatar-ryan.md`. El personaje tiene animación 2D de balanceo y rebote; no es un modelo 3D articulado.
+## Identidad visual
+
+La interfaz conserva la paleta carbón, rojo y crema y las tipografías locales. `colorFondo` controla la luz y el aro del escenario 3D. La vista se adapta a escritorio y móvil. El renderizador 2D y PixiJS fueron retirados; los recursos gráficos históricos se conservan como archivos de referencia, sin cargarse en el estudio.

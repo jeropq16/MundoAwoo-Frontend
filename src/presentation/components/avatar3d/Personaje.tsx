@@ -1,20 +1,25 @@
-import { personajes3D, type Personaje3D } from "@/domain/entities/avatar3d";
+import { personajes3D, type Personaje3D, type Movimiento3D } from "@/domain/entities/avatar3d";
 import { Aro, Segmento, Volumen } from "./Formas";
 import { useBaile } from "./useBaile";
 
-type Props = { personaje: Personaje3D; chaqueta: boolean; bailando: boolean };
-export function Personaje({ personaje, chaqueta, bailando }: Props) {
-  const raiz = useBaile(bailando);
+import type { Equipado } from "@/domain/entities/mundo";
+import { recurso3D } from "./recursos3d";
+type Props = { personaje: Personaje3D; chaqueta: boolean; movimiento: Movimiento3D; pausa: boolean; piezas: Equipado[] };
+export function Personaje({ personaje, chaqueta, movimiento, pausa, piezas }: Props) {
+  const raiz = useBaile(movimiento, pausa);
+  const modelos = new Set(piezas.map(recurso3D));
   const queen = personaje === "queen";
   const { piel, cabello, acento } = personajes3D[personaje];
   const hombro = queen ? 0.19 : 0.23;
+  const pantalon = modelos.has("pantalon") ? acento : "#343946";
+  const zapatillas = modelos.has("zapatillas") ? acento : "#efe9db";
   const torso = chaqueta ? "#242936" : "#e8e2d3";
   return (
     <group ref={raiz}>
       <Volumen
         posicion={[0, 0.82, 0]}
         escala={[queen ? 0.205 : 0.19, 0.15, 0.135]}
-        color="#343946"
+        color={pantalon}
       />
       <Volumen
         posicion={[0, 1.12, 0]}
@@ -53,6 +58,17 @@ export function Personaje({ personaje, chaqueta, bailando }: Props) {
         color={piel}
       />
       <group position={[0, 1.65, 0]}>
+        {modelos.has("gorra") && <group position={[0, .1, 0]}>
+          <mesh castShadow><sphereGeometry args={[.224, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2]} /><meshStandardMaterial color="#252a30" /></mesh>
+          <Volumen posicion={[0, .005, .17]} escala={[.22, .02, .17]} color={acento} />
+        </group>}
+        {modelos.has("lentes") && <group position={[0, .01, .194]}>
+          {[-1, 1].map((lado) => <group key={lado} position={[lado * .075, 0, 0]}>
+            <mesh castShadow><boxGeometry args={[.116, .065, .025]} /><meshStandardMaterial color="#1c1821" metalness={.4} roughness={.15} /></mesh>
+            <mesh position={[0, .03, .014]}><boxGeometry args={[.12, .008, .008]} /><meshStandardMaterial color="#dfbf74" metalness={.8} roughness={.2} /></mesh>
+          </group>)}
+          <mesh><boxGeometry args={[.045, .012, .018]} /><meshStandardMaterial color="#dfbf74" /></mesh>
+        </group>}
         <Volumen escala={[queen ? 0.197 : 0.21, 0.245, 0.19]} color={piel} />
         <Volumen
           posicion={[0, -0.125, 0.06]}
@@ -146,6 +162,7 @@ export function Personaje({ personaje, chaqueta, bailando }: Props) {
         />
       </group>
       <Aro posicion={[0, 1.32, 0.13]} radio={0.08} color="#e4c17c" />
+      {modelos.has("cadena") && <group><Aro posicion={[0, 1.27, .145]} radio={.1} color="#f1d384" /><Volumen posicion={[0, 1.15, .16]} escala={[.03, .04, .01]} color="#f1d384" /></group>}
       {[-1, 1].map((lado) => (
         <group key={lado}>
           <group name={"brazo" + lado} position={[lado * hombro, 1.35, 0]}>
@@ -180,15 +197,15 @@ export function Personaje({ personaje, chaqueta, bailando }: Props) {
             <Segmento
               largo={0.36}
               radio={queen ? 0.1 : 0.095}
-              color="#343946"
+              color={pantalon}
             />
             <group name={"rodilla" + lado} position={[0, -0.35, 0]}>
-              <Volumen escala={[0.076, 0.076, 0.076]} color="#343946" />
-              <Segmento largo={0.35} radio={0.079} color="#343946" />
+              <Volumen escala={[0.076, 0.076, 0.076]} color={pantalon} />
+              <Segmento largo={0.35} radio={0.079} color={pantalon} />
               <Volumen
                 posicion={[0, -0.37, 0.045]}
                 escala={[0.095, 0.065, 0.16]}
-                color="#efe9db"
+                color={zapatillas}
               />
               <Volumen
                 posicion={[0, -0.39, 0.055]}

@@ -18,8 +18,7 @@ export function Cabecera() {
         <nav aria-label="Principal">
           {(
             [
-              ["/", "avatar", "Mi mundo"],
-              ["/laboratorio-3d", "chispa", "Estudio 3D"],
+              ["/", "chispa", "Mi mundo 3D"],
               ["/catalogo", "catalogo", "Catálogo"],
               ["/inventario", "inventario", "Inventario"],
             ] as const

@@ -14,3 +14,10 @@ export const personajes3D = {
     acento: "#a58bfa",
   },
 };
+
+export type Movimiento3D = "Reposo" | "Bailar" | "Saludar";
+export type Estilo3D = {
+  personaje3D: Personaje3D;
+  chaquetaGhetto: boolean;
+  chaquetaQueen: boolean;
+};

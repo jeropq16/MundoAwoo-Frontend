@@ -16,7 +16,7 @@ const graffiti = localFont({
 });
 export const metadata: Metadata = {
   title: "Mundo Awoo · El barrio es tuyo",
-  description: "Tu personaje, tu pinta, tu mundo. Personaliza a Ryan Castro y lleva el flow del barrio a Mundo Awoo.",
+  description: "Tu personaje, tu pinta, tu mundo. Elige tu personaje 3D, viste tu avatar y lleva el flow del barrio a Mundo Awoo.",
   icons: { icon: "/lobo.svg" },
 };
 export default function RootLayout({

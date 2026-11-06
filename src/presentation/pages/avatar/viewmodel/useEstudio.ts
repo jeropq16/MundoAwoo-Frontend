@@ -1,3 +1,4 @@
+import type { Estilo3D, Personaje3D } from "@/domain/entities/avatar3d";
 import { useEffect, useState } from "react";
 import type {
   Avatar,
@@ -17,6 +18,9 @@ export function useEstudio(usuario: string | null) {
     id: "",
     usuarioId: "",
     colorFondo: "#e52836",
+    personaje3D: "ghetto",
+    chaquetaGhetto: false,
+    chaquetaQueen: false,
     itemsEquipados: [],
   });
   const [categorias, setCategorias] = useState<Categoria[]>(
@@ -57,6 +61,7 @@ export function useEstudio(usuario: string | null) {
   }, [usuario, error, intento]);
   const elegir = (item: Item) =>
     ejecutar(async () => {
+      if (estado !== "listo") return;
       const quitar = avatar.itemsEquipados.some(
         (p) => p.itemDeAvatarId === item.id,
       );
@@ -82,13 +87,28 @@ export function useEstudio(usuario: string | null) {
       }
     });
   const color = (colorFondo: string) =>
-    ejecutar(async () =>
+    ejecutar(async () => {
+      if (estado !== "listo") return;
       setAvatar(
         usuario
           ? await avatarRepo.color(colorFondo)
           : { ...avatar, colorFondo },
-      ),
-    );
+      );
+    });
+  const guardarEstilo = (estilo: Estilo3D) => ejecutar(async () => {
+    if (estado !== "listo") return;
+    setAvatar(usuario ? await avatarRepo.estilo3D(estilo) : { ...avatar, ...estilo });
+  });
+  const cambiarPersonaje = (personaje3D: Personaje3D) => {
+    mover("Equipado");
+    pausar(false);
+    return guardarEstilo({ personaje3D, chaquetaGhetto: avatar.chaquetaGhetto, chaquetaQueen: avatar.chaquetaQueen });
+  };
+  const alternarChaqueta = () => guardarEstilo({
+    personaje3D: avatar.personaje3D,
+    chaquetaGhetto: avatar.personaje3D === "ghetto" ? !avatar.chaquetaGhetto : avatar.chaquetaGhetto,
+    chaquetaQueen: avatar.personaje3D === "queen" ? !avatar.chaquetaQueen : avatar.chaquetaQueen,
+  });
   const ids = categorias.filter((c) => c.tipo === tipo).map((c) => c.id);
   const piezas = armario.filter((p) => ids.includes(p.item.categoriaId));
   const animacion = avatar.itemsEquipados.find((p) => p.ranura === "Animacion");
@@ -106,6 +126,8 @@ export function useEstudio(usuario: string | null) {
     piezas,
     tipo,
     seleccionar,
+    cambiarPersonaje,
+    alternarChaqueta,
     elegir,
     color,
     pausa,

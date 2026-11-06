@@ -78,7 +78,7 @@ export function Admin() {
                 name="recursoVisual"
                 required
                 maxLength={500}
-                placeholder="/piezas/poncho.svg"
+                placeholder="awoo3d:bomber"
               />
             </label>
             <button
@@ -87,6 +87,7 @@ export function Admin() {
             >
               Crear pieza
             </button>
+            <small>Modelos disponibles: awoo3d:bomber, gorra, lentes, cadena, pantalon, zapatillas, baile y saludo. Usa el prefijo awoo3d: en cada recurso.</small>
           </form>
           <form
             className="form inset"

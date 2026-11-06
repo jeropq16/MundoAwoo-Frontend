@@ -123,7 +123,16 @@
   .labCamera {
     padding: 14px;
   }
-  .labPage .tag {
-    display: none;
-  }
+  .labPage .pageTitle { flex-wrap: wrap; }
 }
+
+.labSidebar, .labPreview { display: grid; gap: 18px; align-content: start; min-width: 0; }
+.labPage .labTools .labNote { margin-top: 2px; font-size: 11px; }
+.labLinks { display: flex; justify-content: space-between; gap: 16px; padding: 20px; font-size: 12px; }
+.labError { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px; margin-bottom: 20px; }
+.labGrid { align-items: start; }
+.labStage { scroll-margin-top: 20px; }
+.labPreview .quick { flex-wrap: wrap; }
+.labPage .tag { white-space: normal; }
+@media (min-width: 1000px) { .labPreview { position: sticky; top: 20px; } }
+@media (max-width: 760px) { .labGrid { grid-template-columns: 1fr; } .labPreview { grid-row: 1; } .labTools { display: grid; grid-template-columns: 1fr 1fr; } .labTools .eyebrow, .labTools .labNote { grid-column: 1 / -1; } .labTools .eyebrow:not(:first-child) { margin-top: 8px; } .labCanvas { height: 420px; } .labPage .pageTitle h1 { font-size: 48px; } .labError { flex-direction: column; align-items: flex-start; } }

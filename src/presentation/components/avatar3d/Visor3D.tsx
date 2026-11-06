@@ -3,12 +3,15 @@ import { Component, useEffect, type ReactNode } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Personaje } from "./Personaje";
-import type { Personaje3D } from "@/domain/entities/avatar3d";
+import type { Personaje3D, Movimiento3D } from "@/domain/entities/avatar3d";
 
 type Props = {
   personaje: Personaje3D;
   chaqueta: boolean;
-  bailando: boolean;
+  movimiento: Movimiento3D;
+  pausa: boolean;
+  colorFondo: string;
+  piezas: import("@/domain/entities/mundo").Equipado[];
   camara: { angulo: number; revision: number };
 };
 function Camara({ angulo }: { angulo: number }) {
@@ -58,7 +61,7 @@ export default function Visor3D(props: Props) {
   return (
     <LimiteVisor>
       <Canvas
-        shadows
+        shadows="percentage"
         dpr={[1, 1.75]}
         camera={{ position: [0, 1.65, 3.8], fov: 38 }}
         fallback={<p>Este navegador necesita WebGL para mostrar el avatar.</p>}
@@ -81,12 +84,14 @@ export default function Visor3D(props: Props) {
         <pointLight
           position={[-2, 2, -2]}
           intensity={12}
-          color={props.personaje === "queen" ? "#aa8bff" : "#ff6d69"}
+          color={props.colorFondo}
         />
         <Personaje
           personaje={props.personaje}
           chaqueta={props.chaqueta}
-          bailando={props.bailando}
+          movimiento={props.movimiento}
+          pausa={props.pausa}
+          piezas={props.piezas}
         />
         <mesh position={[0, -0.035, 0]} receiveShadow>
           <cylinderGeometry args={[0.85, 0.88, 0.08, 64]} />
@@ -95,8 +100,8 @@ export default function Visor3D(props: Props) {
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.008, 0]}>
           <ringGeometry args={[0.79, 0.805, 64]} />
           <meshStandardMaterial
-            color={props.personaje === "queen" ? "#aa8bff" : "#ef343e"}
-            emissive={props.personaje === "queen" ? "#aa8bff" : "#ef343e"}
+            color={props.colorFondo}
+            emissive={props.colorFondo}
             emissiveIntensity={0.5}
           />
         </mesh>
