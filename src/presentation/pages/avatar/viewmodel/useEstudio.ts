@@ -1,4 +1,4 @@
-import type { Estilo3D, Personaje3D } from "@/domain/entities/avatar3d";
+import { aparienciaInicial, type Apariencia3D, type Estilo3D, type Personaje3D } from "@/domain/entities/avatar3d";
 import { useEffect, useState } from "react";
 import type {
   Avatar,
@@ -21,6 +21,8 @@ export function useEstudio(usuario: string | null) {
     personaje3D: "ghetto",
     chaquetaGhetto: false,
     chaquetaQueen: false,
+    aparienciaGhetto: aparienciaInicial("ghetto"),
+    aparienciaQueen: aparienciaInicial("queen"),
     itemsEquipados: [],
   });
   const [categorias, setCategorias] = useState<Categoria[]>(
@@ -109,6 +111,14 @@ export function useEstudio(usuario: string | null) {
     chaquetaGhetto: avatar.personaje3D === "ghetto" ? !avatar.chaquetaGhetto : avatar.chaquetaGhetto,
     chaquetaQueen: avatar.personaje3D === "queen" ? !avatar.chaquetaQueen : avatar.chaquetaQueen,
   });
+  const cambiarApariencia = (cambios: Partial<Apariencia3D>) => ejecutar(async () => {
+    if (estado !== "listo") return;
+    const clave = avatar.personaje3D === "queen" ? "aparienciaQueen" : "aparienciaGhetto";
+    const apariencia = { ...(avatar[clave] ?? aparienciaInicial(avatar.personaje3D)), ...cambios };
+    setAvatar(usuario
+      ? await avatarRepo.apariencia3D(avatar.personaje3D, apariencia)
+      : { ...avatar, [clave]: apariencia });
+  });
   const ids = categorias.filter((c) => c.tipo === tipo).map((c) => c.id);
   const piezas = armario.filter((p) => ids.includes(p.item.categoriaId));
   const animacion = avatar.itemsEquipados.find((p) => p.ranura === "Animacion");
@@ -127,6 +137,7 @@ export function useEstudio(usuario: string | null) {
     tipo,
     seleccionar,
     cambiarPersonaje,
+    cambiarApariencia,
     alternarChaqueta,
     elegir,
     color,

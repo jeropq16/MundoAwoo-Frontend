@@ -1,15 +1,18 @@
-import { personajes3D, type Personaje3D, type Movimiento3D } from "@/domain/entities/avatar3d";
+import { personajes3D, type Personaje3D, type Movimiento3D, type Apariencia3D } from "@/domain/entities/avatar3d";
 import { Aro, Segmento, Volumen } from "./Formas";
 import { useBaile } from "./useBaile";
+import { Pelo3D, Barba3D, useTinta } from "./Apariencia";
 
 import type { Equipado } from "@/domain/entities/mundo";
 import { recurso3D } from "./recursos3d";
-type Props = { personaje: Personaje3D; chaqueta: boolean; movimiento: Movimiento3D; pausa: boolean; piezas: Equipado[] };
-export function Personaje({ personaje, chaqueta, movimiento, pausa, piezas }: Props) {
+type Props = { personaje: Personaje3D; chaqueta: boolean; movimiento: Movimiento3D; pausa: boolean; piezas: Equipado[]; apariencia: Apariencia3D };
+export function Personaje({ personaje, chaqueta, movimiento, pausa, piezas, apariencia }: Props) {
   const raiz = useBaile(movimiento, pausa);
   const modelos = new Set(piezas.map(recurso3D));
   const queen = personaje === "queen";
-  const { piel, cabello, acento } = personajes3D[personaje];
+  const { piel, acento } = personajes3D[personaje];
+  const cabello = apariencia.colorCabello;
+  const tinta = useTinta(apariencia.tatuajes);
   const hombro = queen ? 0.19 : 0.23;
   const pantalon = modelos.has("pantalon") ? acento : "#343946";
   const zapatillas = modelos.has("zapatillas") ? acento : "#efe9db";
@@ -55,6 +58,7 @@ export function Personaje({ personaje, chaqueta, movimiento, pausa, piezas }: Pr
       <Volumen
         posicion={[0, 1.43, 0]}
         escala={[0.075, 0.09, 0.075]}
+        tinta={tinta}
         color={piel}
       />
       <group position={[0, 1.65, 0]}>
@@ -75,52 +79,9 @@ export function Personaje({ personaje, chaqueta, movimiento, pausa, piezas }: Pr
           escala={[0.135, 0.105, 0.125]}
           color={piel}
         />
-        <Volumen
-          posicion={[0, 0.14, -0.035]}
-          escala={[0.215, 0.135, 0.19]}
-          color={cabello}
-        />
-        {queen ? (
-          <group>
-            <Volumen
-              posicion={[0, 0.1, -0.14]}
-              escala={[0.21, 0.21, 0.11]}
-              color={cabello}
-            />
-            {[-1, 1].map((lado) => (
-              <group key={lado}>
-                <Volumen
-                  posicion={[lado * 0.17, 0.2, -0.05]}
-                  escala={[0.105, 0.12, 0.105]}
-                  color={cabello}
-                />
-                <Volumen
-                  posicion={[lado * 0.18, -0.1, -0.12]}
-                  escala={[0.055, 0.25, 0.065]}
-                  color={cabello}
-                />
-                <Aro
-                  posicion={[lado * 0.215, -0.11, 0.025]}
-                  radio={0.04}
-                  color="#ebc477"
-                />
-              </group>
-            ))}
-          </group>
-        ) : (
-          <group>
-            <Volumen
-              posicion={[0, 0.215, -0.015]}
-              escala={[0.2, 0.085, 0.17]}
-              color={cabello}
-            />
-            <Volumen
-              posicion={[0, -0.135, 0.12]}
-              escala={[0.115, 0.07, 0.065]}
-              color={cabello}
-            />
-          </group>
-        )}
+        {!modelos.has("gorra") && <Pelo3D estilo={apariencia.pelo} personaje={personaje} color={cabello} />}
+        <Barba3D estilo={apariencia.barba} personaje={personaje} color={cabello} />
+        {queen && [-1, 1].map((lado) => <Aro key={lado} posicion={[lado * .215, -.11, .025]} radio={.04} color="#ebc477" />)}
         {[-1, 1].map((lado) => (
           <group key={lado}>
             <Volumen
@@ -170,6 +131,7 @@ export function Personaje({ personaje, chaqueta, movimiento, pausa, piezas }: Pr
             <Segmento
               largo={0.3}
               radio={chaqueta ? 0.085 : 0.07}
+              tinta={chaqueta ? null : tinta}
               color={chaqueta ? torso : piel}
             />
             <group name={"codo" + lado} position={[0, -0.29, 0]}>
@@ -177,6 +139,7 @@ export function Personaje({ personaje, chaqueta, movimiento, pausa, piezas }: Pr
               <Segmento
                 largo={0.29}
                 radio={chaqueta ? 0.073 : 0.057}
+                tinta={chaqueta ? null : tinta}
                 color={chaqueta ? torso : piel}
               />
               {chaqueta && (

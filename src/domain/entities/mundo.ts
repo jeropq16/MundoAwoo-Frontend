@@ -1,4 +1,4 @@
-import type { Personaje3D } from "./avatar3d";
+import type { Personaje3D, Apariencia3D } from "./avatar3d";
 
 export const ranurasPorTipo = {
   Ropa: ["Torso", "Piernas", "Pies"],
@@ -33,6 +33,8 @@ export interface Avatar {
   personaje3D: Personaje3D;
   chaquetaGhetto: boolean;
   chaquetaQueen: boolean;
+  aparienciaGhetto: Apariencia3D;
+  aparienciaQueen: Apariencia3D;
   itemsEquipados: Equipado[];
 }
 export interface Desbloqueo {

@@ -136,3 +136,12 @@
 .labPage .tag { white-space: normal; }
 @media (min-width: 1000px) { .labPreview { position: sticky; top: 20px; } }
 @media (max-width: 760px) { .labGrid { grid-template-columns: 1fr; } .labPreview { grid-row: 1; } .labTools { display: grid; grid-template-columns: 1fr 1fr; } .labTools .eyebrow, .labTools .labNote { grid-column: 1 / -1; } .labTools .eyebrow:not(:first-child) { margin-top: 8px; } .labCanvas { height: 420px; } .labPage .pageTitle h1 { font-size: 48px; } .labError { flex-direction: column; align-items: flex-start; } }
+.appearanceTools { display: grid; gap: 17px; padding: 22px; }
+.appearanceTools h2 { font-size: 29px; margin-top: 6px; }
+.appearanceOwner { font-size: 10px; margin-top: 8px; color: var(--gold); }
+.appearanceTools label, .hairColors legend { font-size: 12px; }
+.appearanceTools select { padding: 11px; font-size: 12px; }
+.appearanceHint { font-size: 11px; line-height: 1.7; }
+.hairColors { border: 0; min-width: 0; padding: 0; margin: 0; }
+.hairColors legend { padding: 0 0 10px; font-weight: 600; }
+@media (max-width: 760px) { .appearanceTools { padding: 18px; } }

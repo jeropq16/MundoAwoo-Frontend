@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
+import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { personajes3D, type Personaje3D } from "@/domain/entities/avatar3d";
 import { useUsuario } from "@/security/useUsuario";
 import { Icono } from "@/presentation/components/common/Icono";
 import { Vestidor } from "../../avatar/view/Vestidor";
 import { recurso3D } from "@/presentation/components/avatar3d/recursos3d";
+import { Personalizacion } from "./Personalizacion";
 import { useEstudio3D } from "../viewmodel/useEstudio3D";
 import "./estudio3d.css";
 
@@ -16,6 +18,11 @@ const Visor3D = dynamic(() => import("@/presentation/components/avatar3d/Visor3D
 
 function Mesa3D({ usuario }: { usuario: string | null }) {
   const vm = useEstudio3D(usuario);
+  const escenario = useRef<HTMLElement>(null);
+  const verRostro = () => {
+    vm.verRostro();
+    escenario.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   const bloqueado = vm.ocupado || vm.estado !== "listo";
   const incompatibles = vm.avatar.itemsEquipados.filter((p) => !recurso3D(p));
   return (
@@ -42,17 +49,18 @@ function Mesa3D({ usuario }: { usuario: string | null }) {
               {vm.torso ? vm.torso.nombre : vm.chaquetaBase ? "Quitar chaqueta" : "Poner chaqueta"}<span>{vm.torso ? "PRENDA DEL INVENTARIO" : "BOMBER AWOO · INCLUIDA"}</span>
             </button>
             {vm.torso && <p className="labNote">Quita la prenda equipada en el vestidor para cambiar la bomber base.</p>}
-            <p className="labNote">{usuario ? "El personaje, la bomber de cada personaje, el ambiente y tu inventario se guardan automáticamente." : <>Prueba los personajes y las piezas. <Link href="/registro">Crea tu cuenta</Link> para guardar tu estilo.</>}</p>
+            <p className="labNote">{usuario ? "Tu apariencia, personaje, ropa y ambiente se guardan automáticamente." : <>Prueba los personajes y las piezas. <Link href="/registro">Crea tu cuenta</Link> para guardar tu estilo.</>}</p>
           </aside>
+          <Personalizacion verRostro={verRostro} apariencia={vm.apariencia} personaje={vm.personaje} ocupado={bloqueado} cambiar={vm.cambiarApariencia} conGorra={vm.avatar.itemsEquipados.some((p) => recurso3D(p) === "gorra")} conChaqueta={vm.chaqueta} />
           <Vestidor vm={vm} invitado={!usuario} />
         </div>
         <div className="labPreview">
-          <section className="panel labStage" aria-label="Vista previa del avatar 3D">
+          <section ref={escenario} className="panel labStage" aria-label="Vista previa del avatar 3D">
             <div className="labTitle"><h2>{personajes3D[vm.personaje].nombre}</h2><span role="status">{vm.pausa ? "En pausa" : vm.movimiento === "Bailar" ? "Bailando" : vm.movimiento === "Saludar" ? "Saludando" : "En reposo"} · {vm.chaqueta ? "Con chaqueta" : "Sin chaqueta"}</span></div>
             <div className="labCanvas" aria-busy={vm.estado === "cargando"}>
-              <Visor3D personaje={vm.personaje} chaqueta={vm.chaqueta} movimiento={vm.movimiento} pausa={vm.pausa} colorFondo={vm.avatar.colorFondo} piezas={vm.avatar.itemsEquipados} camara={vm.camara} />
+              <Visor3D apariencia={vm.apariencia} personaje={vm.personaje} chaqueta={vm.chaqueta} movimiento={vm.movimiento} pausa={vm.pausa} colorFondo={vm.avatar.colorFondo} piezas={vm.avatar.itemsEquipados} camara={vm.camara} />
             </div>
-            <div className="labCamera"><p>Arrastra para girar · Rueda o pellizco para acercarte</p><div><button onClick={() => vm.girar(0)}>Frente</button><button onClick={() => vm.girar(Math.PI / 2)}>Perfil</button><button onClick={() => vm.girar(Math.PI)}>Espalda</button></div></div>
+            <div className="labCamera"><p>Arrastra para girar · Rueda o pellizco para acercarte</p><div><button onClick={() => vm.girar(0)}>Frente</button><button onClick={() => vm.girar(Math.PI / 2)}>Perfil</button><button onClick={() => vm.girar(Math.PI)}>Espalda</button><button onClick={verRostro}>Rostro</button></div></div>
           </section>
           <div className="panel quick">
             <div><Icono nombre="Baile" /><span><b>SUELTA EL PASO</b><small>Tu personaje, tu movimiento.</small></span></div>

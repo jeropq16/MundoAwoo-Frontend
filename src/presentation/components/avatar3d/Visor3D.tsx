@@ -3,30 +3,32 @@ import { Component, useEffect, type ReactNode } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Personaje } from "./Personaje";
-import type { Personaje3D, Movimiento3D } from "@/domain/entities/avatar3d";
+import type { Personaje3D, Movimiento3D, Apariencia3D } from "@/domain/entities/avatar3d";
 
 type Props = {
   personaje: Personaje3D;
   chaqueta: boolean;
+  apariencia: Apariencia3D;
   movimiento: Movimiento3D;
   pausa: boolean;
   colorFondo: string;
   piezas: import("@/domain/entities/mundo").Equipado[];
-  camara: { angulo: number; revision: number };
+  camara: { angulo: number; revision: number; detalle: boolean };
 };
-function Camara({ angulo }: { angulo: number }) {
+function Camara({ angulo, detalle }: { angulo: number; detalle: boolean }) {
   const { camera } = useThree();
   useEffect(() => {
-    camera.position.set(Math.sin(angulo) * 3.8, 1.65, Math.cos(angulo) * 3.8);
-    camera.lookAt(0, 1, 0);
+    const distancia = detalle ? 1.25 : 3.8;
+    camera.position.set(Math.sin(angulo) * distancia, detalle ? 1.67 : 1.65, Math.cos(angulo) * distancia);
+    camera.lookAt(0, detalle ? 1.65 : 1, 0);
     camera.updateProjectionMatrix();
-  }, [camera, angulo]);
+  }, [camera, angulo, detalle]);
   return (
     <OrbitControls
       makeDefault
-      target={[0, 1, 0]}
+      target={[0, detalle ? 1.65 : 1, 0]}
       enablePan={false}
-      minDistance={2.4}
+      minDistance={detalle ? .85 : 2.4}
       maxDistance={5.5}
       minPolarAngle={0.4}
       maxPolarAngle={Math.PI / 2 + 0.1}
@@ -89,6 +91,7 @@ export default function Visor3D(props: Props) {
         <Personaje
           personaje={props.personaje}
           chaqueta={props.chaqueta}
+          apariencia={props.apariencia}
           movimiento={props.movimiento}
           pausa={props.pausa}
           piezas={props.piezas}
@@ -105,7 +108,7 @@ export default function Visor3D(props: Props) {
             emissiveIntensity={0.5}
           />
         </mesh>
-        <Camara key={props.camara.revision} angulo={props.camara.angulo} />
+        <Camara key={props.camara.revision} angulo={props.camara.angulo} detalle={props.camara.detalle} />
       </Canvas>
     </LimiteVisor>
   );

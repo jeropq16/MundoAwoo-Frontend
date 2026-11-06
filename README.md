@@ -35,6 +35,7 @@ Todas las rutas de la tabla llevan el prefijo `/api`. Las operaciones de perfil,
 | GET avatar | — | Avatar |
 | PUT avatar/color | colorFondo en formato #RRGGBB | Avatar |
 | PUT avatar/estilo3d | personaje3D, chaquetaGhetto, chaquetaQueen | Avatar |
+| PUT avatar/apariencia3d | personaje3D, pelo, barba, tatuajes, colorCabello | Avatar |
 | POST avatar/items/{itemId}/equipar | identificador en la ruta | Avatar |
 | DELETE avatar/items/{itemId}/desequipar | identificador en la ruta | 204 |
 | GET catalogo/categorias | — | Categoria[] |
@@ -70,3 +71,9 @@ El visor requiere WebGL. Si no puede iniciarse, muestra un aviso y ofrece reinte
 ## Identidad visual
 
 La interfaz conserva la paleta carbón, rojo y crema y las tipografías locales. `colorFondo` controla la luz y el aro del escenario 3D. La vista se adapta a escritorio y móvil. El renderizador 2D y PixiJS fueron retirados; los recursos gráficos históricos se conservan como archivos de referencia, sin cargarse en el estudio.
+
+## Pelo, barba y tatuajes
+
+El panel «Pelo, barba y tinta» configura cada personaje de forma independiente, incluso al cambiar entre Ghetto Boy y La Ghetto Queen. Los cortes disponibles son original, rapado, fade, trenzas y cresta. Las barbas son original, afeitado, candado, completa y bigote. Los tatuajes admiten ninguno, geometrico, estrellas y blackwork; se aplican al cuello y a los brazos con mapas de tinta transparentes sobre las mallas de piel. No se muestran a través de la chaqueta. Al equipar una gorra, se oculta el pelo para evitar cruces entre las geometrías, conservando la selección.
+
+El color del pelo y la barba es compartido. La cámara «Rostro» acerca los detalles; «Frente», «Perfil» y «Espalda» vuelven al cuerpo completo. Los tatuajes siguen las articulaciones al bailar y las texturas se liberan al cambiar de diseño. Los invitados prueban cambios durante la visita; las cuentas los guardan mediante la API. Aplica la migración del backend `AparienciaPersonajes3D` antes de usar esta versión.
