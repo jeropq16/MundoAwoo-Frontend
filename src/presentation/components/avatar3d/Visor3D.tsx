@@ -35,7 +35,7 @@ function Camara({ angulo, detalle }: { angulo: number; detalle: boolean }) {
     />
   );
 }
-class LimiteVisor extends Component<
+export class LimiteVisor extends Component<
   { children: ReactNode },
   { error: boolean }
 > {

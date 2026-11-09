@@ -1,5 +1,17 @@
 # Mundo Awoo
 
+## Encuentro con parceros
+
+`/encuentros` permite a cuentas autenticadas crear una sala y compartir su código de 12 caracteres. Hasta seis personas ven sus avatares guardados, conversan y sincronizan las acciones Relax, Saludar y Bailar. El avatar se carga desde el backend al entrar; para cambiar ropa o apariencia, sal de la sala, personalízalo y vuelve a entrar.
+
+El cliente oficial de SignalR conecta con `/api/encuentros` a través del proxy existente de Next. Usa Long Polling con JWT en la cabecera (sin tokens en la URL), renovación de sesión y reconexión automática. No requiere variables nuevas ni servicios de pago. La implementación sigue entidades en `domain`, transporte en `data/repositories/encuentros`, token en `security` y vista/viewmodel separados.
+
+Las salas son temporales en memoria de una única instancia del backend. Conservan como máximo 100 mensajes de 500 caracteres y desaparecen cuando quedan vacías o se reinicia la API. Una desconexión abrupta puede tardar unos segundos en retirar al participante. Si la sala desapareció durante una desconexión, hay que crear otra. Para desplegar varias instancias hará falta un almacén compartido y coordinación de mensajes; esta versión no implementa historial permanente, voz, moderación ni lista de amigos.
+
+Prueba manual: abre dos sesiones independientes (por ejemplo, ventana normal e incógnito), inicia sesión con cuentas diferentes, crea una sala en una y pega su código en la otra. Comprueba mensajes en ambos sentidos, baile y salida de participantes. En otro dispositivo, utiliza la dirección de red del frontend; `localhost` solo funciona en el mismo equipo. El acceso desde Internet necesita desplegar ambos servicios.
+
+Referencia del transporte: [cliente JavaScript oficial de SignalR](https://learn.microsoft.com/aspnet/core/signalr/javascript-client?view=aspnetcore-9.0).
+
 Estudio de avatar 3D en Next.js, React, Three.js y React Three Fiber. La portada y `/avatar` usan la misma experiencia: Ghetto Boy y La Ghetto Queen, ropa y accesorios, baile y saludo articulados, pausa y cámara orbital. `/laboratorio-3d` redirige a la portada.
 
 El modo invitado permite probar piezas durante la visita. Con una cuenta, el personaje, la bomber de cada personaje, el color del ambiente y el equipamiento se recuperan desde la API y se guardan al cambiar. La cámara y las acciones rápidas pertenecen a la sesión de visualización.

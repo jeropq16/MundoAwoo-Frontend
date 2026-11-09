@@ -19,6 +19,7 @@ export function Cabecera() {
           {(
             [
               ["/", "chispa", "Mi mundo 3D"],
+              ["/encuentros", "perfil", "Encuentro con parceros"],
               ["/catalogo", "catalogo", "Catálogo"],
               ["/inventario", "inventario", "Inventario"],
             ] as const
