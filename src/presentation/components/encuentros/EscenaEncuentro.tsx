@@ -23,7 +23,7 @@ export default function EscenaEncuentro({ participantes }: { participantes: Parc
           const chaqueta = avatar.itemsEquipados.some((p) => p.ranura === "Torso" && recurso3D(p)) || (queen ? avatar.chaquetaQueen : avatar.chaquetaGhetto);
           const columnas = Math.min(participantes.length, 3);
           return <group key={parcero.usuarioId} position={[(indice % 3 - (columnas - 1) / 2) * 1.6, 0, Math.floor(indice / 3) * -2]}>
-            <Personaje personaje={avatar.personaje3D} apariencia={(queen ? avatar.aparienciaQueen : avatar.aparienciaGhetto) ?? aparienciaInicial(avatar.personaje3D)} chaqueta={chaqueta} piezas={avatar.itemsEquipados} movimiento={parcero.movimiento} pausa={false} />
+            <Personaje personaje={avatar.personaje3D} apariencia={(queen ? avatar.aparienciaQueen : avatar.aparienciaGhetto) ?? aparienciaInicial(avatar.personaje3D)} chaqueta={chaqueta} piezas={avatar.itemsEquipados} movimiento={parcero.movimiento} pausa={!parcero.conectado} />
             <NombreParcero nombre={parcero.nombreVisible} />
           </group>;
         })}

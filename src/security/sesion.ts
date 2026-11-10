@@ -45,6 +45,14 @@ async function renovar(actual: Sesion) {
   }
   return renovacion;
 }
+export async function obtenerTokenVigente() {
+  const actual = leerSesion();
+  if (!actual) throw new Error("Inicia sesión para continuar.");
+  const vigente = Date.parse(actual.expiraEnUtc) <= Date.now() + 30_000
+    ? await renovar(actual) : actual;
+  if (leerSesion()?.usuarioId !== actual.usuarioId) throw new Error("Tu sesión terminó.");
+  return vigente.token;
+}
 export async function privada<T>(
   ruta: string,
   metodo = "GET",

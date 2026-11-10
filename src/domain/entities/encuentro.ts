@@ -6,6 +6,7 @@ export interface Parcero {
   nombreVisible: string;
   avatar: Avatar;
   movimiento: Movimiento3D;
+  conectado: boolean;
 }
 export interface MensajeSala {
   id: string;
@@ -21,3 +22,6 @@ export interface Sala {
   mensajes: MensajeSala[];
 }
 export type EstadoConexion = "conectando" | "conectado" | "reconectando" | "desconectado";
+
+export interface RetornoEncuentro { codigo: string; tokenReconexion: string; }
+export interface EntradaSala { sala: Sala; tokenReconexion: string; }

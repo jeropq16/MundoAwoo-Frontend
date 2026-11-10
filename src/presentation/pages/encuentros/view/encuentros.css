@@ -38,3 +38,6 @@
 .encuentroVacio, .encuentroCarga { padding: 20px; color: var(--muted); }
 @media (max-width: 1000px) { .encuentroGrid { grid-template-columns: 1fr; } .encuentroChat { height: 460px; } }
 @media (max-width: 650px) { .encuentroEntrada { grid-template-columns: 1fr; } .encuentroCanvas { height: 350px; } .encuentroBarra { gap: 12px; padding: 14px; } .encuentroBarra > span { margin-left: 0; } .encuentroPage .pageTitle { align-items: flex-start; flex-direction: column; } }
+
+.encuentroParticipantes .parceroReconectando .liveDot { background: var(--gold); box-shadow: none; animation: none; }
+.encuentroAviso { flex-wrap: wrap; }
